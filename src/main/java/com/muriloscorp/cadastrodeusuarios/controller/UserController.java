@@ -21,11 +21,20 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
-    @GetMapping("/nome/{name}")
+    @GetMapping("/name/{name}")
     public ResponseEntity<User> getUserByName(@PathVariable String name) {
         return userService.buscarPorNome(name)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/find")
+    public ResponseEntity<List<User>> getUsersByNameContaining(@RequestParam String name) {
+        List<User> users = userService.buscarPorSubstring(name);
+        if (users.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(users);
     }
 
     @GetMapping("/email/{email}")

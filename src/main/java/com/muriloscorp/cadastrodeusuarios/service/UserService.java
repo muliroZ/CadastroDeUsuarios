@@ -33,6 +33,10 @@ public class UserService {
         return userRepository.findByNome(nome);
     }
 
+    public List<User> buscarPorSubstring(String nome) {
+        return userRepository.findUsersByNomeContaining(nome);
+    }
+
     public Optional<User> buscarPorEmail(String email) {
         return userRepository.findByEmail(email);
     }
