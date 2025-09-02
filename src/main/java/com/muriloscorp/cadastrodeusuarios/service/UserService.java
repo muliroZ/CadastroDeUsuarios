@@ -6,6 +6,7 @@ import jakarta.annotation.Nonnull;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -18,6 +19,10 @@ public class UserService {
             throw new IllegalArgumentException("Nome e email são obrigatórios.");
         }
         return userRepository.save(user);
+    }
+
+    public List<User> buscarTodos() {
+        return userRepository.findAll();
     }
 
     public Optional<User> buscarPorNome(String nome) {
