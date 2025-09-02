@@ -1,6 +1,6 @@
 package com.muriloscorp.cadastrodeusuarios.service;
 
-import com.muriloscorp.cadastrodeusuarios.exceptions.UserAlreadyExistsException;
+import com.muriloscorp.cadastrodeusuarios.exceptions.EmailAlreadyExistsException;
 import com.muriloscorp.cadastrodeusuarios.model.User;
 import com.muriloscorp.cadastrodeusuarios.repository.UserRepository;
 import jakarta.annotation.Nonnull;
@@ -17,10 +17,10 @@ public class UserService {
 
     public User criarUser(@Nonnull User user) {
         if (user.getNome().isEmpty() || user.getEmail().isEmpty()) {
-            throw new IllegalArgumentException("Nome e email são obrigatórios.");
+            throw new IllegalArgumentException();
         }
         if (userRepository.existsUserByEmail(user.getEmail())) {
-            throw new UserAlreadyExistsException();
+            throw new EmailAlreadyExistsException();
         }
         return userRepository.save(user);
     }
